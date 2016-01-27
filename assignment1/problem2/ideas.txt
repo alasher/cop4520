@@ -1,0 +1,3 @@
+At start, each philosopher generates a random number of seconds to think (can be zero) before they change states.
+Each time a philosopher changes states, as soon as it successfully transitions, generate some random amount of time to stay in that state.
+Print each time they change states successfully.
