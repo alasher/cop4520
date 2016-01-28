@@ -1,0 +1,40 @@
+- ** Part A **
+	- Implements a simple philosopher dining system, where each philosopher is a thread.
+	- This is the most naive approach. It has each philosopher first try to pick up the left fork, then the right. After they are finished eating, they drop their right fork, then their left.
+	- This does not prevent deadlock nor starvation, as each thread may simultaneously request to eat, causing a circular dependency.
+
+- ** Part B **
+	- A slight revision to part a that prevents deadlock.
+	- The method by which this prevents deadlock:
+		- Each chopstick (or fork) has been given a number
+			- Any philosopher [0, n-2], k, may only access chopsticks k, and k+1
+			- Philosopher n-1 (the last one) may only access chopsticks n-1, and 0.
+		- When a philosopher is selecting a fork, they first pick up the *lower* numbered fork.
+		- This prevents deadlock because the last philosopher, n-1, would try to select chopstick 0, which would have already been taken.
+			- Since it's already taken, the philosopher takes neither chopstick, and philosopher n-2 can pick up both chopsticks to eat successfully.
+			- Once philosopher n-2 finishes eating, n-3 is free to eat, and the cycle continues without deadlock.
+	- This solution does not prevent starvation
+		- For example, let's say we had one philosopher who was very hungry, and repeatedly requested to eat over and over again.
+		- In the worst possible scenario, the hungry philosopher will always get priority over its adjacent philosophers
+			- The adjacent philosophers would, therefore, begin to starve
+			- This assumes there is no fairness in philosopher selection, which we must add to ensure a starvation-free solution
+
+- ** Part C **
+	- To become starvation free, we must add a mechanism to ensure there is fairness
+	- A global FIFO queue can be added to ensure philosophers that priority is given to a philosopher who began waiting first
+		- This works because a philosopher who is currently eating cannot "reserve" time on a queue
+		- They have no access to the queue while they are eating
+	- Once someone requests to eat, the queue is checked
+		- If the queue is empty, and the chopsticks are free, start eating and ignore the queue.
+		- Otherwise, add yourself to the queue and begin waiting
+	- Once someone is finished eating, we check the queue
+		- When the chopstics are dropped, we signal to the next person on the queue that it's their turn to (try) and eat
+		- It's likely that the signaled person still must wait for the other chopstick they require to be released. 
+			- In this case, the queue is not popped
+			- Instead, they wait for the owner of the chopstick they are waiting on to signal them
+			- This works because, since only philosophers who have gone through the queue can begin eating, we are guaranteed that the original chopstick we received is still free.
+
+- ** Part D **
+	- Since I created the philosophers and forks as a vector/array in the first place, adding support for more philosophers was not difficult
+	- This was implemented as a command line argument, and it will notify the syntax if you run with no arguments.
+

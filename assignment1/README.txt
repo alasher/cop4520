@@ -1,23 +1,6 @@
-Use the included Makefile to build the project from source.
+Use the included Makefile to build the project from source. Use just "make" or "make all" to build all project files. Individual programs may also be built, see "make help".
 
+Explanations for each problem have been placed into their respective folders.
+	problem1/EXPLANATION.txt
+	problem2/EXPLANATION.txt
 
-/* 
-
-Problem 2 - Dining Philosophers
-
-// Part 1
-Provide a solution to the Dining Philosophers problem for N=5 philosophers. 
-Each philosopher represents a thread, and each chopstick represents a shared resource.
-
-// Part 2
-Modify part 1 to be deadlock-free
-
-// Part 3
-Modify part 2 to be starvation-free
-
-// Part 4
-Modify part 3 to satisfy the Dining Philosophers problem for any number of philosophers N
-
-
-
-*/

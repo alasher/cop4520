@@ -1,0 +1,30 @@
+At start, each philosopher generates a random number of seconds to think (can be zero) before they change states.
+Each time a philosopher changes states, as soon as it successfully transitions, generate some random amount of time to stay in that state.
+Print each time they change states successfully.
+
+
+
+
+When a philosopher calls pickup(), if the queue is empty, the chopsticks are checked, and if they are in use, the philosopher is put on the queue. If they are not in use, the philosopher is allowed to eat, and pickup() returns. Note how this checking must be performed in a monitor. 
+
+When putdown() is called, the chopsticks are released, and then test_queue() is called, which checks the head of the queue to see if the philosopher there can eat. If so, that philosopher is unblocked, and then he/she can eat.
+
+when philosopher is hungry,
+	if queue empty and chopsticks are available
+		let philosopher eat
+	else
+		place id onto queue
+		wait
+		
+when philosopher is done,
+	free chopsticks
+	
+	
+-------------------------------------------------
+
+global queue solution
+if chopsticks are available, lock the forks in use
+if chopsticks are not available for you, get in line
+
+once forks are dropped, 
+how do we control which thread accesses the next forks once we unlock the ones we're done with? 

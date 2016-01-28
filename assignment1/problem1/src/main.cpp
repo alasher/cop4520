@@ -42,6 +42,12 @@ int main(int argc, char** argv) {
 		cout << "ERROR: Failed to write results into \"primes.txt\"!\n";
 	}
 	
+	if(PRINT_THREAD_COUNT) {
+		for(i=0; i < N_THREADS; i++) {
+			printf("Thread %d: %d operations\n", i, threadCounter[i]);
+		}
+	}
+	
 	delete c;
 	
 	return 0;

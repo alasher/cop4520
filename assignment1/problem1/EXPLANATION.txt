@@ -1,0 +1,28 @@
+- ** Approach **
+	- This program uses an atomic counter to keep track of the "current number" we are on
+		- It starts at 3, and increments by 2, that way even numbers are skipped.
+		- We check divisibility by 3 quickly, without running our loop
+	- Each thread receives a number by requesting to use the atomic prime counter "primecounter"
+	- When a thread receives a number, it does a simple primality test by trying to divide it by each (odd) number from 3 to sqrt(n).
+	
+- ** Correctness **
+	- As the algorithm is so simple, the only way it could be incorrect is if either:
+		- The atomic counter skips any number
+		- The primality tester is incorrect
+	- Neither of which are the case.
+	- The efficiency of the algorithm could be improved drastically, but I chose this approach because
+		- We reviewed it in class and verified its correctness
+		- Since I was new to using threads, I wanted a simple algorithm so I could focus on learning threads, and not the intricacies of a complicated algorithm
+		
+- ** Load distribution **
+	- I included a "results" panel that shows the number of checks done per thread.
+	- Here is what my results panel printed when I ran locally:
+		- Thread 0: 6245990 operations
+		- Thread 1: 6207671 operations
+		- Thread 2: 6243247 operations
+		- Thread 3: 6251681 operations
+		- Thread 4: 6269163 operations
+		- Thread 5: 6221040 operations
+		- Thread 6: 6263728 operations
+		- Thread 7: 6297479 operations
+	- As you can see, there is roughly an even distribution of calculations per thread.
